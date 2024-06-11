@@ -58,7 +58,8 @@ const TodoForm = () => {
   const handleDelete = (id)=>{
     setTodos((currentTodos)=>{
       return currentTodos.filter((todos)=>{
-        todos.id!=id
+        return todos.id!=id
+        // if the return is not passed it will dekete all items.
       })
     })
   }
@@ -80,6 +81,13 @@ const TodoForm = () => {
         </button>
       </form>
       <h1>To Do List</h1>
+      {todos.length ===0 && "No Todos"}
+      {/* true means second would execute. false means it wont */}
+      {/* short circuiting 
+      true || false is ansyways true so the second parameter doesnt need to execute.
+      false || console.log()
+      // the console log will execute to find if the rear is true or false so that it cud cone into a conclusion.
+      */}
       <ul>
         {todos.map((todo) => (
           // this way everythig inside the paranthesis is returned.
@@ -92,7 +100,10 @@ const TodoForm = () => {
  */}
               {todo.title}
             </label>
-            <button className="todo-btn" onClick={(e)=>handleDelete(todo.id)}>Delete</button>
+            <button className="todo-btn" onClick={()=>handleDelete(todo.id)}>Delete</button>
+            {/* onClick={handleDelete(todo.id)}  -- this will call the function rightway and the result is passed. instead a function is needed that is called when the event is clicked or triggered
+            benifits- custom argumemg and the ability to call other functions when triggerd in the previous case it is obvious that onSubmit does a submission method so need this
+            passing the function directly as onClick={handleDelete(todo.id)} would not work as intended because it would call handleDelete immediately during the render process, not when the button is clicked. This would result in undesired behavior.,*/}
           </li>
         ))}
       </ul>
