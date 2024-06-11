@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import "./../App.css"
 
-const TodoForm = () => {
+const TodoForm = ({ addTodo }) => {
   const [val, setVal] = useState("");
-  const [todos, setTodos] = useState([]);
   const handleChange = (e) => {
     setVal(e.target.value);
   };
@@ -18,54 +18,11 @@ const TodoForm = () => {
     //     completed: false,
     //   },
     // ]);
-    setTodos((currentTodos) => {
-      // current value fro now this way it is updatedd instantly.
-      /**The difference between the two approaches lies in how they handle state updates when using the setTodos function provided by the useState hook. Let’s break down each method:
-       * This method is more reliable in scenarios where the state might be updated multiple times in quick succession or where state updates depend on the current state.
-       *
-       */
-      return [
-        ...currentTodos,
-        {
-          id: crypto.randomUUID(),
-          title: val,
-          completed: false,
-        },
-      ];
-    
-    });
+    addTodo(val);
     setVal("");
   };
-  const toggleTodo = (id,isToggle)=>{
-    setTodos((currentTodos)=>{
-      // the currentTodo is an object the latest object to be precise. also note that just becuz the array is destructured that doesnt mean that the objects inside is destructured. it is there the same way.
-      /**[
-  { id: '1', title: 'Learn React', completed: true },
-  { id: '2', title: 'Build Todo App', completed: false }
-] */
-      return currentTodos.map((todo)=>{
-        // function return.
-        if(todo.id==id) return {...todo,completed:isToggle}
-        // the completed property is set to true.
-        // console.log(todo)
-
-        return todo;
-        // if it didint matched it return the todo.
-      })
-    })
-
-  }
-  const handleDelete = (id)=>{
-    setTodos((currentTodos)=>{
-      return currentTodos.filter((todos)=>{
-        return todos.id!=id
-        // if the return is not passed it will dekete all items.
-      })
-    })
-  }
-  console.log(todos);
   return (
-    <>
+    <div>
       <form className="TodoForm" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -80,47 +37,8 @@ const TodoForm = () => {
           Add Task
         </button>
       </form>
-      <h1>To Do List</h1>
-      {todos.length ===0 && "No Todos"}
-      {/* true means second would execute. false means it wont */}
-      {/* short circuiting 
-      true || false is ansyways true so the second parameter doesnt need to execute.
-      false || console.log()
-      // the console log will execute to find if the rear is true or false so that it cud cone into a conclusion.
-      */}
-      <ul>
-        {todos.map((todo) => (
-          // this way everythig inside the paranthesis is returned.
-          <li key={todo.id}>
-            {/* use key in top leval in each element. so that react knows what shud be edited in future or what is edited. when retutning an array of elelemnst . */}
-            <label>
-              <input type="checkbox" checked={todo.completed} onChange={(e)=>toggleTodo(todo.id,e.target.checked)}></input>
-              {/* when the checkbox is checked or unchecked, this function will be called. */}
-              {/* e.target.checked is a boolean that represents the new checked state of the checkbox (true if checked, false if unchecked).
- */}
-              {todo.title}
-            </label>
-            <button className="todo-btn" onClick={()=>handleDelete(todo.id)}>Delete</button>
-            {/* onClick={handleDelete(todo.id)}  -- this will call the function rightway and the result is passed. instead a function is needed that is called when the event is clicked or triggered
-            benifits- custom argumemg and the ability to call other functions when triggerd in the previous case it is obvious that onSubmit does a submission method so need this
-            passing the function directly as onClick={handleDelete(todo.id)} would not work as intended because it would call handleDelete immediately during the render process, not when the button is clicked. This would result in undesired behavior.,*/}
-          </li>
-        ))}
-      </ul>
-    </>
+    </div>
   );
 };
 
 export default TodoForm;
-
-// useState bts
-
-// const useState(let x){
-/** function(val){
- * x=val;
- * return [x,function]
- * only if useStAte is used the the value will change cuz inly here the component is rerendered.
- * setNum(54) === setNum(()=>54)
- * 
-}*/
-// }
