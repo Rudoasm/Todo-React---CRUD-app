@@ -84,9 +84,13 @@ h1 {
   text-decoration: line-through;
   cursor: pointer;
 }
+li{
+  list-style-type: none;
+}
 
 .edit-icon,
 .delete-icon {
   cursor: pointer;
+  margin: 5px;
 }
  

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TodoItem = ({completed, title, id, toggleTodo, handleDelete}) => {
+const TodoItem = ({completed, title, id, toggleTodo, handleDelete,handleEdit}) => {
   return (
     <div>
       <li key={id}>
@@ -16,11 +16,11 @@ const TodoItem = ({completed, title, id, toggleTodo, handleDelete}) => {
                */}
               {title}
             </label>
-            <button className="todo-btn" 
-            onClick={() => handleDelete(id)}
-            >
-              Delete
-            </button>
+            <i class="fa-solid fa-pen-to-square edit-icon" onClick={()=>handleEdit(id)}></i>
+            <i class="fa-solid fa-trash delete-icon"   onClick={(e) => handleDelete(id,e.target.value)}></i>
+       
+            
+       
             {/* onClick={handleDelete(todo.id)}  -- this will call the function rightway and the result is passed. instead a function is needed that is called when the event is clicked or triggered
             benifits- custom argumemg and the ability to call other functions when triggerd in the previous case it is obvious that onSubmit does a submission method so need this
             passing the function directly as onClick={handleDelete(todo.id)} would not work as intended because it would call handleDelete immediately during the render process, not when the button is clicked. This would result in undesired behavior.,*/}

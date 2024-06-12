@@ -65,8 +65,15 @@ const App = () => {
     });
   };
   console.log(todos);
+  const handleEdit =(id,param)=>{
+    setTodos((currentTodos)=>{
+      return currentTodos.map((todo)=>{
+        if(id===todo.id) return {...todo,title:param}
+      })
+    })
+  }
   return (
-    <>
+    <main className="TodoWrapper">
       <TodoForm addTodo={addTodo} />
       <h1>To Do List</h1>
 
@@ -82,8 +89,9 @@ const App = () => {
         todos={todos}
         toggleTodo={toggleTodo}
         handleDelete={handleDelete}
+        handleEdit={handleEdit}
       />
-    </>
+    </main>
   );
 };
 
