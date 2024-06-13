@@ -17,7 +17,7 @@ const TodoItem = ({completed, title, id, toggleTodo, handleDelete,handleEdit}) =
               {title}
             </label>
             <i class="fa-solid fa-pen-to-square edit-icon" onClick={()=>handleEdit(id)}></i>
-            <i class="fa-solid fa-trash delete-icon"   onClick={(e) => handleDelete(id,e.target.value)}></i>
+            <i class="fa-solid fa-trash delete-icon"   onClick={() => handleDelete(id)}></i>
        
             
        

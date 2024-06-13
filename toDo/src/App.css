@@ -86,11 +86,14 @@ h1 {
 }
 li{
   list-style-type: none;
+  color: #c5aeff;
+  margin: 5px;
 }
 
 .edit-icon,
 .delete-icon {
   cursor: pointer;
   margin: 5px;
+  color: #fff;
 }
  

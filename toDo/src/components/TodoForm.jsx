@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./../App.css"
 
-const TodoForm = ({ addTodo }) => {
-  const [val, setVal] = useState("");
+const TodoForm = ({ addTodo,val,setVal }) => {
+
   const handleChange = (e) => {
     setVal(e.target.value);
   };

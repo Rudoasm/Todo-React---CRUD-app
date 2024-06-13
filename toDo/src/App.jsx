@@ -14,6 +14,7 @@ const App = () => {
     return JSON.parse(localvalue);
     // json is parsed back.
   });
+  const [val, setVal] = useState("");
 
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
@@ -21,6 +22,9 @@ const App = () => {
   }, [todos]);
 
   function addTodo(title) {
+    /**const newSetTodo = [...todos, title]
+     * setValue(newSetTodo) like this.
+     */
     setTodos((currentTodos) => {
       // current value fro now this way it is updatedd instantly.
       /**The difference between the two approaches lies in how they handle state updates when using the setTodos function provided by the useState hook. Let’s break down each method:
@@ -63,18 +67,28 @@ const App = () => {
         // if the return is not passed it will dekete all items.
       });
     });
+    /**const newtodolist = todos.filter((todo)=>{
+     * return if (todo.id!=id)
+     * setTodo(newTodoList)
+    } */
   };
   console.log(todos);
-  const handleEdit =(id,param)=>{
-    setTodos((currentTodos)=>{
-      return currentTodos.map((todo)=>{
-        if(id===todo.id) return {...todo,title:param}
-      })
+  const handleEdit =(id)=>{
+    // setTodos((currentTodos)=>{
+    //   return currentTodos.map((todo)=>{
+    //     if(id===todo.id) return {...todo,title:param}
+    //   })
+    // })
+    todos.map((todo)=>{
+      if(id===todo.id){
+        setVal(todo.title)
+        handleDelete(id)
+      }
     })
   }
   return (
     <main className="TodoWrapper">
-      <TodoForm addTodo={addTodo} />
+      <TodoForm addTodo={addTodo} val={val} setVal={setVal} />
       <h1>To Do List</h1>
 
       {todos.length === 0 && "No Todos"}
